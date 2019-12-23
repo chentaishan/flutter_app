@@ -41,7 +41,6 @@ class _contentPagerState extends State<contentPager> {
             _widgetItem(CardRecommand()),
             _widgetItem(CardRecommand()),
             _widgetItem(CardRecommand()),
-
           ],
         ))
       ],
@@ -49,7 +48,10 @@ class _contentPagerState extends State<contentPager> {
   }
 
   Widget _widgetItem(Widget widget) {
-    return widget;
+    return Padding(
+      padding: EdgeInsets.all(12),
+      child: widget,
+    );
   }
 }
 

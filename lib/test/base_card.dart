@@ -42,19 +42,24 @@ class BaseCardState extends State<BaseCard> {
 
   bottomContent(String url) {
     return Expanded(
-
-      child: Image.network(url,fit: BoxFit.cover,),
+      child: Image.network(
+        url,
+        fit: BoxFit.cover,
+      ),
     );
   }
 
   mainTitle(String title) {
-    return Text(
-      title,
-      style: TextStyle(fontSize: 22, color: Colors.black),
+    return Padding(
+      padding: EdgeInsets.only(top: 25),
+      child: Text(
+        title,
+        style: TextStyle(fontSize: 22, color: Colors.black),
+      ),
     );
   }
 
-   subTitle(String title) {
+  subTitle(String title) {
     return Padding(
       padding: EdgeInsets.only(top: 5, left: 22),
       child: Text(
