@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/test/card_recommand.dart';
+import 'package:flutter_app/test/card_shared.dart';
 
 class contentPager extends StatefulWidget {
   final ValueChanged<int> onPageChanged;
@@ -38,7 +39,7 @@ class _contentPagerState extends State<contentPager> {
           controller: pageController,
           children: <Widget>[
             _widgetItem(CardRecommand()),
-            _widgetItem(CardRecommand()),
+            _widgetItem(card_shared()),
             _widgetItem(CardRecommand()),
             _widgetItem(CardRecommand()),
           ],

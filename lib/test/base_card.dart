@@ -32,6 +32,7 @@ class BaseCardState extends State<BaseCard> {
           Row(
             children: <Widget>[
               mainTitle(''),
+              main2Title(''),
             ],
           ),
           subTitle(''),
@@ -66,6 +67,15 @@ class BaseCardState extends State<BaseCard> {
         "$title",
         style: TextStyle(color: Colors.grey, fontSize: 13),
       ),
+    );
+  }
+
+  main2Title(String title) {
+
+    return Padding(
+      padding: EdgeInsets.only(left: 12),
+      child: Text(title,style: TextStyle(color: Colors.black,fontSize: 12
+      ),),
     );
   }
 }
