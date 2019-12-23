@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/test/card_recommand.dart';
 
 class contentPager extends StatefulWidget {
   final ValueChanged<int> onPageChanged;
@@ -36,22 +37,19 @@ class _contentPagerState extends State<contentPager> {
           onPageChanged: widget.onPageChanged,
           controller: pageController,
           children: <Widget>[
-            _widgetItem(0),
-            _widgetItem(1),
-            _widgetItem(2),
-            _widgetItem(3),
+            _widgetItem(CardRecommand()),
+            _widgetItem(CardRecommand()),
+            _widgetItem(CardRecommand()),
+            _widgetItem(CardRecommand()),
+
           ],
         ))
       ],
     );
   }
 
-  Widget _widgetItem(int index) {
-    return Padding(
-        padding: EdgeInsets.all(11),
-        child: Container(
-          decoration: BoxDecoration(color: colorList[index]),
-        ));
+  Widget _widgetItem(Widget widget) {
+    return widget;
   }
 }
 
