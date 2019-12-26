@@ -26,9 +26,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currIndex = 0;
-
+  PageViewController pageViewController;
   var default_color = Colors.grey;
   var active_color = Colors.blue;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    pageViewController = PageViewController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +54,18 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       drawer: HomeDrawer(),
-      body: contentPager(),
+      body: contentPager(
+        pageViewController:pageViewController,
+        onPageChanged: (index){
+          setState(() {
+            currIndex = index;
+          });
+        },
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currIndex,
-        onTap: (index){
+        onTap: (index) {
+          pageViewController.jumpTPage(index);
           setState(() {
             currIndex = index;
           });
@@ -117,18 +133,18 @@ class HomeDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading:
-                      Image.asset("images/apple.png", width: 33, height: 33),
+                  Image.asset("images/apple.png", width: 33, height: 33),
                   title: Text("two"),
                   onTap: () => {print("two")},
                 ),
                 ListTile(
                   leading:
-                      Image.asset("images/Ribs.png", width: 33, height: 33),
+                  Image.asset("images/Ribs.png", width: 33, height: 33),
                   title: Text("three"),
                 ),
                 ListTile(
                   leading:
-                      Image.asset("images/Rice.png", width: 33, height: 33),
+                  Image.asset("images/Rice.png", width: 33, height: 33),
                   title: Text("four"),
                 ),
               ],

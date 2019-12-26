@@ -14,9 +14,8 @@ class contentPager extends StatefulWidget {
 }
 
 class _contentPagerState extends State<contentPager> {
-  final PageController pageController = PageController(viewportFraction: 0.8);
+  final PageController pageController = PageController(viewportFraction:1);
 
-  List<Color> colorList = [Colors.blue, Colors.grey, Colors.white, Colors.red];
 
   @override
   void initState() {
@@ -40,7 +39,6 @@ class _contentPagerState extends State<contentPager> {
           children: <Widget>[
             _widgetItem(CardRecommand()),
             _widgetItem(card_shared()),
-            _widgetItem(CardRecommand()),
             _widgetItem(CardRecommand()),
           ],
         ))
