@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/test/content_pager.dart';
 
 void main() => runApp(Main());
 
@@ -24,6 +25,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int currIndex = 0;
+
+  var default_color = Colors.grey;
+  var active_color = Colors.blue;
+
   @override
   Widget build(BuildContext context) {
     var _select_index;
@@ -40,16 +46,39 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       drawer: HomeDrawer(),
+      body: contentPager(),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currIndex,
+        onTap: (index){
+          setState(() {
+            currIndex = index;
+          });
+        },
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.pages), title: Text("Project")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.palette), title: Text("Owner"))
+          _selfBottomNavigationItem(Icons.palette, "HOME", 0),
+          _selfBottomNavigationItem(Icons.print, "Project", 1),
+          _selfBottomNavigationItem(Icons.palette, "Owner", 2),
         ],
       ),
     );
+  }
+
+  _selfBottomNavigationItem(IconData iconData, String title, int index) {
+    return BottomNavigationBarItem(
+        icon: Icon(
+          iconData,
+          color: default_color,
+        ),
+        activeIcon: Icon(
+          iconData,
+          color: active_color,
+        ),
+        title: Text(
+          title,
+          style: TextStyle(
+            color: currIndex != index ? default_color : active_color,
+          ),
+        ));
   }
 }
 
@@ -78,7 +107,10 @@ class HomeDrawer extends StatelessWidget {
                     width: 33,
                     height: 33,
                   ),
-                  title: Text(  "one",textDirection: TextDirection.ltr, ),
+                  title: Text(
+                    "one",
+                    textDirection: TextDirection.ltr,
+                  ),
                   subtitle: Text("sub_title"),
                   isThreeLine: true,
                   onTap: () => {print("one")},

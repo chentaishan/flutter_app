@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/test/card_recommand.dart';
+import 'package:flutter_app/test/card_home.dart';
 import 'package:flutter_app/test/card_shared.dart';
 
 class contentPager extends StatefulWidget {
@@ -50,7 +50,7 @@ class _contentPagerState extends State<contentPager> {
 
   Widget _widgetItem(Widget widget) {
     return Padding(
-      padding: EdgeInsets.all(12),
+      padding: EdgeInsets.all(0),
       child: widget,
     );
   }
