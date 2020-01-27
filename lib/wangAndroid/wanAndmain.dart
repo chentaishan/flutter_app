@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
     var _select_index;
     return Scaffold(
       appBar: AppBar(
-        title: Text("WanAdroid"),
+        title: Text("WanAdroid",textDirection: TextDirection.ltr,),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.share),
