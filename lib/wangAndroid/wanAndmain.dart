@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/test/content_pager.dart';
+import 'package:flutter_app/test/newRoute.dart';
 
 void main() => runApp(Main());
 
@@ -150,18 +151,26 @@ class HomeDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading:
-                      Image.asset("images/apple.png", width: 33, height: 33),
+                  Image.asset("images/apple.png", width: 33, height: 33),
                   title: Text("two"),
-                  onTap: () => {print("two")},
+                  onTap: () => {
+                  print("two"),
+
+                  //导航到新路由
+                  Navigator.push( context,
+                  MaterialPageRoute(builder: (context) {
+                  return newRoute();
+                  }))
+                },
                 ),
                 ListTile(
                   leading:
-                      Image.asset("images/Ribs.png", width: 33, height: 33),
+                  Image.asset("images/Ribs.png", width: 33, height: 33),
                   title: Text("three"),
                 ),
                 ListTile(
                   leading:
-                      Image.asset("images/Rice.png", width: 33, height: 33),
+                  Image.asset("images/Rice.png", width: 33, height: 33),
                   title: Text("four"),
                 ),
               ],
