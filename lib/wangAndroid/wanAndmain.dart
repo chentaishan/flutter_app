@@ -121,11 +121,12 @@ class HomeDrawer extends StatelessWidget {
                     Scaffold.of(context).showSnackBar(SnackBar(
                       content: Text("我是SnackBar"),
                     ));
+                    Scaffold.of(context).openEndDrawer();
                   },
                   icon: Image.asset(
                     "images/apple.png",
-                    width: 100,
-                    height: 100,
+                    width: 200,
+                    height: 200,
                   ),
                 ),
 //                child: IconButton.asset("images/apple.png", width: 100, height: 100,),
@@ -151,26 +152,26 @@ class HomeDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading:
-                  Image.asset("images/apple.png", width: 33, height: 33),
-                  title: Text("two"),
+                      Image.asset("images/apple.png", width: 33, height: 33),
+                  title: Text("跳转到新的页面"),
                   onTap: () => {
-                  print("two"),
+                    print("two"),
 
-                  //导航到新路由
-                  Navigator.push( context,
-                  MaterialPageRoute(builder: (context) {
-                  return newRoute();
-                  }))
-                },
+                    //导航到新路由
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return newRoute(text: "this is my new page");
+                    }))
+                  },
                 ),
                 ListTile(
                   leading:
-                  Image.asset("images/Ribs.png", width: 33, height: 33),
+                      Image.asset("images/Ribs.png", width: 33, height: 33),
                   title: Text("three"),
                 ),
                 ListTile(
                   leading:
-                  Image.asset("images/Rice.png", width: 33, height: 33),
+                      Image.asset("images/Rice.png", width: 33, height: 33),
                   title: Text("four"),
                 ),
               ],
