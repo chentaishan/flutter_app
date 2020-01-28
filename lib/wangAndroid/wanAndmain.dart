@@ -43,7 +43,10 @@ class _HomePageState extends State<HomePage> {
     var _select_index;
     return Scaffold(
       appBar: AppBar(
-        title: Text("WanAdroid",textDirection: TextDirection.ltr,),
+        title: Text(
+          "WanAdroid",
+          textDirection: TextDirection.ltr,
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.share),
@@ -55,8 +58,8 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: HomeDrawer(),
       body: contentPager(
-        pageViewController:pageViewController,
-        onPageChanged: (index){
+        pageViewController: pageViewController,
+        onPageChanged: (index) {
           setState(() {
             currIndex = index;
           });
@@ -110,7 +113,21 @@ class HomeDrawer extends StatelessWidget {
             decoration: BoxDecoration(color: Colors.lightBlueAccent),
             child: Center(
               child: ClipOval(
-                child: Image.asset("images/Rice.png", width: 100, height: 100),
+                child: IconButton(
+                  onPressed: () {
+                    print("hhhh");
+
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text("我是SnackBar"),
+                    ));
+                  },
+                  icon: Image.asset(
+                    "images/apple.png",
+                    width: 100,
+                    height: 100,
+                  ),
+                ),
+//                child: IconButton.asset("images/apple.png", width: 100, height: 100,),
               ),
             ),
           ),
@@ -133,18 +150,18 @@ class HomeDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading:
-                  Image.asset("images/apple.png", width: 33, height: 33),
+                      Image.asset("images/apple.png", width: 33, height: 33),
                   title: Text("two"),
                   onTap: () => {print("two")},
                 ),
                 ListTile(
                   leading:
-                  Image.asset("images/Ribs.png", width: 33, height: 33),
+                      Image.asset("images/Ribs.png", width: 33, height: 33),
                   title: Text("three"),
                 ),
                 ListTile(
                   leading:
-                  Image.asset("images/Rice.png", width: 33, height: 33),
+                      Image.asset("images/Rice.png", width: 33, height: 33),
                   title: Text("four"),
                 ),
               ],
