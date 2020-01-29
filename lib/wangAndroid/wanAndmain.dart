@@ -26,7 +26,6 @@ class _MainState extends State<Main> {
   }
 }
 
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -109,12 +108,16 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class HomeDrawer extends StatelessWidget {
-  var result;
+class HomeDrawer extends StatefulWidget {
+  @override
+  _HomeDrawerState createState() => _HomeDrawerState();
+}
 
+class _HomeDrawerState extends State<HomeDrawer> {
+
+  var _msg="jump";
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Drawer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -173,13 +176,13 @@ class HomeDrawer extends StatelessWidget {
                 ListTile(
                   leading:
                       Image.asset("images/Ribs.png", width: 33, height: 33),
-                  title: Text("three"),
+                  title: Text(_msg),
                   onTap: () => {
+                    Navigator.pushNamed(context, "newroute",
+                            arguments: "content")
+                        .then((msg) => setState(() => _msg = msg)),
 
-                    Navigator.push(context, MaterialPageRoute(builder: (context){
-
-                      return  UnKnownPage();
-                    }))
+                    print("--"+_msg)
                   },
                 ),
                 ListTile(
