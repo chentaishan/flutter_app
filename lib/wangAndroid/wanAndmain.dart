@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/test/UnknownPage.dart';
 import 'package:flutter_app/test/content_pager.dart';
 import 'package:flutter_app/test/newRoute.dart';
 
@@ -15,10 +16,16 @@ class _MainState extends State<Main> {
     var _select_index = 0;
 
     return MaterialApp(
+      routes: {
+        "newroute": (context) => newRoute(),
+      },
+      onUnknownRoute: (RouteSettings setting) =>
+          MaterialPageRoute(builder: (context) => UnKnownPage()),
       home: HomePage(),
     );
   }
 }
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -103,6 +110,8 @@ class _HomePageState extends State<HomePage> {
 }
 
 class HomeDrawer extends StatelessWidget {
+  var result;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -125,8 +134,6 @@ class HomeDrawer extends StatelessWidget {
                   },
                   icon: Image.asset(
                     "images/apple.png",
-                    width: 200,
-                    height: 200,
                   ),
                 ),
 //                child: IconButton.asset("images/apple.png", width: 100, height: 100,),
@@ -155,9 +162,8 @@ class HomeDrawer extends StatelessWidget {
                       Image.asset("images/apple.png", width: 33, height: 33),
                   title: Text("跳转到新的页面"),
                   onTap: () => {
-                    print("two"),
+//                    print("two"),
 
-                    //导航到新路由
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return newRoute(text: "this is my new page");
@@ -168,6 +174,13 @@ class HomeDrawer extends StatelessWidget {
                   leading:
                       Image.asset("images/Ribs.png", width: 33, height: 33),
                   title: Text("three"),
+                  onTap: () => {
+
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+
+                      return  UnKnownPage();
+                    }))
+                  },
                 ),
                 ListTile(
                   leading:
