@@ -8,6 +8,8 @@ import 'package:flutter_app/test/banner_card.dart';
 import 'package:flutter_app/test/loading_page.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
+import 'fileUtil.dart';
+
 class CardRecommand extends StatefulWidget {
   @override
   _CardRecommandState createState() => _CardRecommandState();
@@ -52,7 +54,7 @@ class _CardRecommandState extends State<CardRecommand> {
 
   void initBannerData() async {
     result = await getNetWorkData("https://www.wanandroid.com/banner/json");
-
+    writeContent(result);
     print("list=" + result);
 
     if (result.toString().length > 0) {
@@ -61,6 +63,7 @@ class _CardRecommandState extends State<CardRecommand> {
       if (bannerBeanEntity != null) {
         setState(() {
           _bannerBeanData = bannerBeanEntity;
+
         });
       }
     }
