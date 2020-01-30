@@ -1,41 +1,41 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_app/test/base_card.dart';
 
-class card_shared extends BaseCard{
-
-
+class card_project extends StatefulWidget {
   @override
-  card_sharedState createState() {
-
-    return card_sharedState();
-  }
+  _card_projectState createState() => _card_projectState();
 }
 
-class card_sharedState extends BaseCardState{
-
-
+class _card_projectState extends State<card_project> {
   @override
-  mainTitle(String title) {
-    // TODO: implement mainTitle
-    return super.mainTitle("本周推荐");
+  void initState() {
+    // TODO: implement initState
+    super.initState();
   }
 
   @override
-  subTitle(String title) {
-    // TODO: implement subTitle
-    return super.subTitle("送你一天天无限卡");
+  Widget build(BuildContext context) {
+    return Container(
+      child: CustomScrollView(slivers: <Widget>[
+        SliverAppBar(
+          //SliverAppBar作为头图控件
+          //设置悬浮样式
+          flexibleSpace: Image.network("https://ww1.sinaimg.cn/large/0065oQSqly1ftzsj15hgvj30sg15hkbw.jpg", fit: BoxFit.cover),
+          //设置悬浮头图背景
+          expandedHeight: 300, //头图控件高度
+        ),
+        SliverList(
+          //SliverList作为列表控件
+          delegate: SliverChildBuilderDelegate(
+            (context, index) => ListTile(title: Text('Item #$index')),
+            //列表项创建方法
+            childCount: 100, //列表元素个数
+          ),
+        ),
+      ]),
+    );
   }
-  
-  @override
-  bottomContent(String url) {
-    // TODO: implement bottomContent
-    return super.bottomContent("https://ws1.sinaimg.cn/large/0065oQSqly1g0ajj4h6ndj30sg11xdmj.jpg");
-  }
-
-  @override
-  main2Title(String title) {
-    // TODO: implement main2Title
-    return super.main2Title("/123期");
-  }
-
 }

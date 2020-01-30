@@ -37,7 +37,9 @@ class _CardRecommandState extends State<CardRecommand> {
     return ListView.separated(
       itemCount: _homeListBeanEntity.data.datas.length,
       itemBuilder: (BuildContext context, int index) {
-        return _bannerBeanData != null && _bannerBeanData.data.length > 0&&index==0
+        return _bannerBeanData != null &&
+                _bannerBeanData.data.length > 0 &&
+                index == 0
             ? bannerItem(_bannerBeanData)
             : listItem(_homeListBeanEntity, index);
       },
@@ -76,8 +78,8 @@ class _CardRecommandState extends State<CardRecommand> {
   }
 
   void initHomeList() async {
-
-    result =await getNetWorkData("https://www.wanandroid.com/article/list/0/json");
+    result =
+        await getNetWorkData("https://www.wanandroid.com/article/list/0/json");
 
     print("list=" + result);
 
@@ -121,8 +123,8 @@ Widget bannerItem(BannerBeanEntity _bannerBeanData) {
         },
         autoplay: true,
         onTap: (index) => print(index),
-        itemCount:  _bannerBeanData.data.length,
-//        pagination: new SwiperPagination(),
+        itemCount: _bannerBeanData.data.length,
+        pagination: new SwiperPagination(),
 //        control: new SwiperControl(),
       ));
 }
@@ -130,6 +132,9 @@ Widget bannerItem(BannerBeanEntity _bannerBeanData) {
 Widget listItem(HomeListBeanEntity _homeListBeanEntity, int index) {
   if (_homeListBeanEntity == null) {
     return null;
+  }
+  if (index == 5) {
+    return sixItem();
   }
 
   index > 0 ? index-- : index;
@@ -168,6 +173,16 @@ Widget listItem(HomeListBeanEntity _homeListBeanEntity, int index) {
           ),
         ),
       ],
+    ),
+  );
+}
+
+Widget sixItem() {
+  return Container(
+    height: 220,
+    child: Image.network(
+      "http://ww1.sinaimg.cn/large/0065oQSqgy1fu39hosiwoj30j60qyq96.jpg",
+      fit: BoxFit.cover,
     ),
   );
 }
