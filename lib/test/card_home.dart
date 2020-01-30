@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/bean/banner_bean_entity.dart';
 import 'package:flutter_app/bean/home_list_bean_entity.dart';
 import 'package:flutter_app/test/banner_card.dart';
+import 'package:flutter_app/test/loading_page.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class CardRecommand extends StatefulWidget {
@@ -34,7 +35,7 @@ class _CardRecommandState extends State<CardRecommand> {
     Widget nullColor = Divider(
       color: Colors.white,
     );
-    return ListView.separated(
+    return _homeListBeanEntity==null? loadingPage():ListView.separated(
       itemCount: _homeListBeanEntity.data.datas.length,
       itemBuilder: (BuildContext context, int index) {
         return _bannerBeanData != null &&

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/test/card_home.dart';
+import 'package:flutter_app/test/card_owner.dart';
 import 'package:flutter_app/test/card_shared.dart';
 
 class contentPager extends StatefulWidget {
@@ -40,7 +41,7 @@ class _contentPagerState extends State<contentPager> {
           children: <Widget>[
             _widgetItem(CardRecommand()),
             _widgetItem(card_project()),
-//            _widgetItem(CardRecommand()),
+            _widgetItem(card_owner()),
           ],
         ))
       ],
