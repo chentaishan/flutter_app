@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/bean/banner_bean_entity.dart';
 import 'package:flutter_app/bean/home_list_bean_entity.dart';
 import 'package:flutter_app/test/banner_card.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 
 class CardRecommand extends StatefulWidget {
   @override
@@ -14,6 +15,8 @@ class CardRecommand extends StatefulWidget {
 class _CardRecommandState extends State<CardRecommand> {
   HomeListBeanEntity _homeListBeanEntity;
   BannerBeanEntity _bannerBeanData;
+
+  var result;
 
   @override
   void initState() {
@@ -28,67 +31,40 @@ class _CardRecommandState extends State<CardRecommand> {
     Widget itemColor = Divider(
       color: Colors.blue,
     );
+    Widget nullColor = Divider(
+      color: Colors.white,
+    );
     return ListView.separated(
       itemCount: _homeListBeanEntity.data.datas.length,
       itemBuilder: (BuildContext context, int index) {
-        return Padding(
-          padding: EdgeInsets.all(11),
-          child: Row(
-            textDirection: TextDirection.ltr,
-            children: <Widget>[
-
-              BannerCard(),
-//              Image.network(
-//                  "http://www.qubaobei.com/ios/cf/uploadfile/132/9/8366.jpg",
-//                  height: 100,
-//                  width: 100),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(11),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-
-                          Text(
-                            _homeListBeanEntity.data.datas[index].title,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                          Text(
-                            "desc=${_homeListBeanEntity.data.datas[index].desc}",
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left,
-                            maxLines: 2,
-                            style: TextStyle(fontSize: 11.0),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
+        return _bannerBeanData != null && _bannerBeanData.data.length > 0&&index==0
+            ? bannerItem(_bannerBeanData)
+            : listItem(_homeListBeanEntity, index);
       },
       separatorBuilder: (BuildContext context, int index) {
-        return itemColor;
+        return index > 0 ? itemColor : nullColor;
       },
     );
   }
 
   void initBannerData() async {
-//    String listjson =
-//        getNetWorkData("https://www.wanandroid.com/article/list/0/json");
-//    String bannerjson =
-//        getNetWorkData("https://www.wanandroid.com/banner/json");
+    result = await getNetWorkData("https://www.wanandroid.com/banner/json");
 
-    var uri = Uri.parse("https://www.wanandroid.com/article/list/0/json");
+    print("list=" + result);
+
+    if (result.toString().length > 0) {
+      BannerBeanEntity bannerBeanEntity =
+          BannerBeanEntity.fromJson(json.decode(result));
+      if (bannerBeanEntity != null) {
+        setState(() {
+          _bannerBeanData = bannerBeanEntity;
+        });
+      }
+    }
+  }
+
+  Future<String> getNetData(String url) async {
+    var uri = Uri.parse(url);
 
     HttpClient httpClient = new HttpClient();
 
@@ -96,38 +72,27 @@ class _CardRecommandState extends State<CardRecommand> {
 
     HttpClientResponse httpClientResponse = await request.close();
 
-    var listjson = await httpClientResponse.transform(utf8.decoder).join();
+    return await httpClientResponse.transform(utf8.decoder).join();
+  }
 
-    print(httpClientResponse.toString());
+  void initHomeList() async {
 
-    print("list=" + listjson);
-//    print("bannerjson=" + bannerjson);
+    result =await getNetWorkData("https://www.wanandroid.com/article/list/0/json");
 
-    if (listjson.length > 0) {
+    print("list=" + result);
+
+    if (result.toString().length > 0) {
       HomeListBeanEntity homeListBeanEntity =
-          HomeListBeanEntity.fromJson(json.decode(listjson));
+          HomeListBeanEntity.fromJson(json.decode(result));
       if (homeListBeanEntity != null) {
         setState(() {
           _homeListBeanEntity = homeListBeanEntity;
-//          _homeListBeanEntity.data.datas.
         });
       }
     }
-
-//    if (bannerjson.length > 0) {
-//      BannerBeanEntity bannerBeanData =
-//          BannerBeanEntity.fromJson(json.decode(bannerjson));
-//      if (bannerBeanData != null) {
-//        setState(() {
-//          _bannerBeanData = bannerBeanData;
-//        });
-//      }
-//    }
   }
 
-  void initHomeList() {}
-
-  Future<String> getNetWorkData(String url) async {
+  getNetWorkData(String url) async {
     var uri = Uri.parse(url);
 
     HttpClient httpClient = new HttpClient();
@@ -144,12 +109,65 @@ class _CardRecommandState extends State<CardRecommand> {
   }
 }
 
-abstract class Listitem {}
-
-class Header implements Listitem {
-  Header();
+Widget bannerItem(BannerBeanEntity _bannerBeanData) {
+  return Container(
+      height: 200,
+      child: Swiper(
+        itemBuilder: (BuildContext context, int index) {
+          return new Image.network(
+            _bannerBeanData.data[index].imagePath,
+            fit: BoxFit.cover,
+          );
+        },
+        autoplay: true,
+        onTap: (index) => print(index),
+        itemCount:  _bannerBeanData.data.length,
+//        pagination: new SwiperPagination(),
+//        control: new SwiperControl(),
+      ));
 }
 
-class Normal implements Listitem {
-  Normal();
+Widget listItem(HomeListBeanEntity _homeListBeanEntity, int index) {
+  if (_homeListBeanEntity == null) {
+    return null;
+  }
+
+  index > 0 ? index-- : index;
+  return Padding(
+    padding: EdgeInsets.all(11),
+    child: Row(
+      textDirection: TextDirection.ltr,
+      children: <Widget>[
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(11),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      _homeListBeanEntity.data.datas[index].title,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                    Text(
+                      "desc=${_homeListBeanEntity.data.datas[index].desc}",
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.left,
+                      maxLines: 2,
+                      style: TextStyle(fontSize: 11.0),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
 }

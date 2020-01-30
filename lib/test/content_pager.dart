@@ -14,7 +14,8 @@ class contentPager extends StatefulWidget {
 }
 
 class _contentPagerState extends State<contentPager> {
-  final PageController pageController = PageController(viewportFraction: 1,initialPage: 0);
+  final PageController pageController =
+      PageController(viewportFraction: 1, initialPage: 0);
 
   @override
   void initState() {
@@ -33,13 +34,12 @@ class _contentPagerState extends State<contentPager> {
 
         Expanded(
             child: PageView(
-
           onPageChanged: widget.onPageChanged,
           controller: pageController,
           scrollDirection: Axis.horizontal,
           children: <Widget>[
             _widgetItem(CardRecommand()),
-//            _widgetItem(card_shared()),
+            _widgetItem(card_project()),
 //            _widgetItem(CardRecommand()),
           ],
         ))
